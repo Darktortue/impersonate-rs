@@ -35,7 +35,7 @@ fn main() {
         .filter_level(log::LevelFilter::Error)
         .init();
 
-    println!("Launching interactive shell...");
+    println!("[*] No arguments passed\n[*] Launching interactive shell...");
     run_interactive();
 }
 
@@ -76,7 +76,7 @@ fn run_cli(opt: &Options) {
 /// Interactive shell
 fn run_interactive() {
     loop {
-        print!("pg> ");
+        print!("irs> ");
         io::stdout().flush().unwrap();
 
         let mut input = String::new();
